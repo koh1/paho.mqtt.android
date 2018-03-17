@@ -3,6 +3,8 @@ package org.eclipse.paho.android.sample.model;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 import java.util.Date;
+//import java.util.Calendar;
+//import java.util.TimeZone;
 
 
 public class ReceivedMessage {
@@ -10,6 +12,8 @@ public class ReceivedMessage {
         this.topic = topic;
         this.message = message;
         this.timestamp = new Date();
+        //this.tscal = Calendar.getInstance(TimeZone.getDefault()).setTime(this.timestamp);
+
     }
 
     private final String topic;

@@ -5,15 +5,15 @@
 
     <TextView
         android:id="@+id/message_topic_text"
-        android:layout_width="fill_parent"
+        android:layout_width="150dip"
         android:layout_height="26dip"
-        android:ellipsize="marquee"
-        android:text="@string/message_topic"
-        android:textSize="12sp"
-        android:layout_below="@+id/message_text"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:maxLines="1" />
+        android:layout_below="@+id/message_text"
+        android:ellipsize="marquee"
+        android:maxLines="1"
+        android:text="@string/message_topic"
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/message_text"
@@ -27,14 +27,14 @@
         android:textSize="16sp" />
 
     <TextView
-        android:layout_width="100dip"
-        android:layout_height="26dip"
-        android:text="@string/message_time"
         android:id="@+id/message_date_text"
-        android:textSize="12sp"
-        android:layout_below="@+id/message_text"
+        android:layout_width="220dip"
+        android:layout_height="26dip"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_below="@+id/message_text"
+        android:text="@string/message_time"
+        android:textSize="12sp" />
 
 
 </RelativeLayout>

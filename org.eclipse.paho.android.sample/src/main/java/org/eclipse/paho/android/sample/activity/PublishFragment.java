@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +19,10 @@ import android.widget.Switch;
 import org.eclipse.paho.android.sample.R;
 import org.eclipse.paho.android.sample.internal.Connections;
 
+import java.text.SimpleDateFormat;
 import java.util.Map;
+import java.util.Calendar;
+import java.util.Date;
 
 
 public class PublishFragment extends Fragment {
@@ -27,8 +31,10 @@ public class PublishFragment extends Fragment {
 
     private int selectedQos = 0;
     private boolean retainValue = false;
-    private String topic = "/test";
+    private String topic = "test";
     private String message = "Hello world";
+    private Date sentDate;
+    private SimpleDateFormat sdf;
 
     public PublishFragment() {
         // Required empty public constructor
@@ -40,7 +46,7 @@ public class PublishFragment extends Fragment {
         Map<String, Connection> connections = Connections.getInstance(this.getActivity())
                 .getConnections();
         connection = connections.get(this.getArguments().getString(ActivityConstants.CONNECTION_KEY));
-
+        sdf = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss.SSS");
         System.out.println("FRAGMENT CONNECTION: " + this.getArguments().getString(ActivityConstants.CONNECTION_KEY));
         System.out.println("NAME:" + connection.getId());
 
@@ -118,9 +124,9 @@ public class PublishFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 System.out.println("Publising: [topic: " + topic + ", message: " + message + ", QoS: " + selectedQos + ", Retain: " + retainValue + "]");
+                message += "SENT_AT:" + sdf.format(Calendar.getInstance().getTime());
                 ((MainActivity) getActivity()).publish(connection, topic, message, selectedQos, retainValue);
-
-
+                //Log.d("", sdf.format(Calendar.getInstance().getTime()));
             }
         });
 

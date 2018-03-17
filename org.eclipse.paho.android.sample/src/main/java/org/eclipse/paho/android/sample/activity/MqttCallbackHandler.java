@@ -23,6 +23,11 @@ import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
+
 /**
  * Handles call backs from the MQTT Client
  *
@@ -76,12 +81,13 @@ class MqttCallbackHandler implements MqttCallback {
    */
   @Override
   public void messageArrived(String topic, MqttMessage message) throws Exception {
-
+    Date recvDate = Calendar.getInstance().getTime();
     //Get connection object associated with this object
     Connection c = Connections.getInstance(context).getConnection(clientHandle);
+    String receivedTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(recvDate);
     c.messageArrived(topic, message);
     //get the string from strings.xml and format
-    String messageString = context.getString(R.string.messageRecieved, new String(message.getPayload()), topic+";qos:"+message.getQos()+";retained:"+message.isRetained());
+    String messageString = context.getString(R.string.messageRecieved, new String(message.getPayload()) + ";" + receivedTime, topic+";qos:"+message.getQos()+";retained:"+message.isRetained());
 
     Log.i(TAG, messageString);
 
